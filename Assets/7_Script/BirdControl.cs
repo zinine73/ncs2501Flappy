@@ -6,6 +6,8 @@ public class BirdControl : MonoBehaviour
 {
     [SerializeField] float velocity = 1.5f;
     [SerializeField] float rotateSpeed = 10f;
+    [SerializeField] Animator flapAnim;
+    [SerializeField] Animator birdAnim;
     [SerializeField] AudioClip acWing;
     [SerializeField] AudioClip acDie;
 
@@ -34,6 +36,8 @@ public class BirdControl : MonoBehaviour
                 gmi.GamePlay();
                 // Bird가 떨어지도록 중력 값 조정
                 rb.gravityScale = 1.0f;
+                // 새의 에니메이터는 끈다
+                birdAnim.enabled = false;
             }
             else if (gmi.GameState == GMState.PLAY) // 게임상태가 PLAY면
             {
@@ -59,12 +63,19 @@ public class BirdControl : MonoBehaviour
         // 게임오버
         gmi.GameOver();
         // 새의 Flap 애니메이션을 멈춘다
-        GetComponent<Animator>().enabled = false;
+        //GetComponent<Animator>().enabled = false;
+        flapAnim.enabled = false;
         // 새의 y좌표에 따라 소리 재생
         if (transform.position.y > -0.2f)
         {
             // 새가 떨어지는 소리
             gmi.PlayAudio(acDie);
         }
+    }
+
+    public void BirdReady()
+    {
+        // 새를 뒤로 움직인다
+        birdAnim.SetTrigger("Ready");
     }
 }

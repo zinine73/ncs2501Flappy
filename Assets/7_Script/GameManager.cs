@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] SpriteRenderer background;
     [SerializeField] Animator floorAnim;
+    [SerializeField] BirdControl bird;
     [SerializeField] AudioClip acReady;
     [SerializeField] AudioClip acHit;
     [SerializeField] GameObject restartButton;
@@ -76,6 +77,8 @@ public class GameManager : MonoBehaviour
         ChangeState(State.READY);
         // Ready 소리
         PlayAudio(acReady);
+        // 새 이동
+        bird.BirdReady();
     }
 
     public void GamePlay()
@@ -90,6 +93,8 @@ public class GameManager : MonoBehaviour
         PlayAudio(acHit);
         // 바닥 애니메이션을 멈춘다
         floorAnim.enabled = false;
+        // 베스트스코어를 체크한다
+        ScoreManager.Instance.CheckBestScore();
         // restart버튼은 일단 꺼둔다
         restartButton.SetActive(false);
         // 코루틴을 사용해서 잠시 시간을 지연시킨다
@@ -99,7 +104,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StopTimer()
     {
         // 2초 기다렸다 다음 로직 실행
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         // 게임 시간을 멈춘다
         Time.timeScale = 0f;
         // restart 버튼 나오게
