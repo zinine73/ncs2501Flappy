@@ -23,7 +23,7 @@ public class GameOverCanvas : MonoBehaviour
             medal.gameObject.SetActive(false);
         }
         scoreResult.text = ScoreManager.Instance.Score.ToString();
-        // todo 베스트 스코어는 최고스코어 값을 보여준다
-        
+        // 베스트 스코어는 최고스코어 값을 보여준다
+        bestScoreText.text = PlayerPrefs.GetInt("RANKSCORE0", 0).ToString();
     }
 }

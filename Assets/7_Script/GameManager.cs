@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public State GameState => gameState;
 
     void Awake()
-    {
+    { 
         if (Instance == null) Instance = this;
     }
 
@@ -44,11 +44,8 @@ public class GameManager : MonoBehaviour
         GameTitle();
     }
     
-    public void PlayAudio(AudioClip clip)
-    {
-        // 파라미터로 넘어온 clip을 한번 플레이시킨다
-        audio.PlayOneShot(clip);
-    }
+    // 파라미터로 넘어온 clip을 한번 플레이시킨다
+    public void PlayAudio(AudioClip clip) =>  audio.PlayOneShot(clip);
 
     void ChangeState(State value)
     {
@@ -67,10 +64,7 @@ public class GameManager : MonoBehaviour
         stateUI[temp].SetActive(true);
     }
 
-    public void GameTitle()
-    {
-        ChangeState(State.TITLE);
-    }
+    public void GameTitle() => ChangeState(State.TITLE);
 
     public void GameReady()
     {
@@ -81,10 +75,7 @@ public class GameManager : MonoBehaviour
         bird.BirdReady();
     }
 
-    public void GamePlay()
-    {
-        ChangeState(State.PLAY);
-    }
+    public void GamePlay() => ChangeState(State.PLAY);
 
     public void GameOver()
     {
@@ -111,14 +102,8 @@ public class GameManager : MonoBehaviour
         restartButton.SetActive(true);
     }
 
-    public void GameBestScore()
-    {
-        ChangeState(State.BESTSCORE);
-    }
+    public void GameBestScore() => ChangeState(State.BESTSCORE);
 
-    public void RestartGame()
-    {
-        // 현재 씬을 다시 불러오기
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    // 현재 씬을 다시 불러오기
+    public void RestartGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }
